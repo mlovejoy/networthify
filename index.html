@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Networthify Shiny Application</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Networthify Shiny Application">
+  <meta name="author" content="MLovejoy, August 2016">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Networthify Shiny Application</h1>
+    <h2>Early Retirement Calculator</h2>
+    <p>MLovejoy, August 2016<br/>Coursera Data Science - Developing Data Products</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Retirement Calculators</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Normal retirement calculators assume you will need 85% of your pre-retirement income once you retire. For example, if you earn $100,000, you will need $85,000 in retirement. But what if you only spend $40,000 per year while earning $100,000? Why would you suddenly need $85,000 once you retire?</p>
+
+<p>The purpose of this Networthify Early Retirement Calculator is to make these calculations more realistic - your post-retirement expenses should be based on your pre-retirement expenses, not income. If your savings rate is fairly high, you simply won&#39;t need to work as many years before you&#39;ll have enough money saved for retirement - this won&#39;t be reflected in traditional retirement calculators.</p>
+
+<p>For CNN&#39;s retirement calculator and their assumptions, see <a href="http://money.cnn.com/calculator/retirement/retirement-need/">http://money.cnn.com/calculator/retirement/retirement-need/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Early Retirement Calculator Assumptions</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>This retirement calculator, based on Networthify&#39;s calculator (<a href="https://networthify.com/calculator/earlyretirement">https://networthify.com/calculator/earlyretirement</a>), assumes you have a current portfolio that can gain value and annual income, a certain percentage of which you save and the rest you spend.</p>
+
+<p>This calculator also assumes your current portfolio and all future earnings will gain 5% annually. The Safe Withdrawal Rate is defaulted to 4%, which is standard for retirement calculators based on the Trinity Study, but you can increase it or decrease it, based on your risk tolerance (higher is riskier).</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>How to Use the Calculator</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>To use the early retirement calculator, simply enter your annual savings and annual expenses, and also your current portfolio value.</p>
+
+<p>You can also adjust the safe withdrawal rate, but it is suggested to use the standard 4%.</p>
+
+<p>Any changes you make to these inputs will automatically adjust the outputs, which are your savings rate and calculated number of years until you can retire.</p>
+
+<p>Sample code to calculate the savings rate:</p>
+
+<pre><code class="r">savings_rate &lt;- function(annual_savings, annual_expenses) 
+        100*(annual_savings/(annual_savings + annual_expenses))
+
+# Savings rate calculation test for $10,000 annual savings and $20,000 annual expenses
+savings_rate(10000, 20000)
+</code></pre>
+
+<pre><code>## [1] 33.33333
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Where to Use the Calculator</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Link for the Networthify Early Retirement Calculator as hosted on shinyapps.io:</p>
+
+<p><a href="https://mlovejoy.shinyapps.io/networthifyApp/">https://mlovejoy.shinyapps.io/networthifyApp/</a></p>
+
+<p>Sample code to calculate the number of years until retirement:</p>
+
+<pre><code class="r">networthify &lt;- function(annual_expenses, swr, annual_savings, roi, 
+                        current_portfolio_value) 
+        (log(annual_expenses/(swr/100) + annual_savings/roi) - 
+        log(current_portfolio_value + annual_savings/roi))/log(1 + roi)
+
+round(networthify(60000, 4, 60000, .05, 400000), 1)
+</code></pre>
+
+<pre><code>## [1] 10.7
+</code></pre>
+
+<p>Check against Networthify: <a href="https://networthify.com/calculator/earlyretirement?income=120000&amp;initialBalance=400000&amp;expenses=60000&amp;annualPct=5&amp;withdrawalRate=4">https://networthify.com/calculator/earlyretirement?income=120000&amp;initialBalance=400000&amp;expenses=60000&amp;annualPct=5&amp;withdrawalRate=4</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Retirement Calculators'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Early Retirement Calculator Assumptions'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='How to Use the Calculator'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Where to Use the Calculator'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
